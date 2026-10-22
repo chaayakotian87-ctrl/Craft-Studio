@@ -1,0 +1,462 @@
+/* ==========================================================================
+   Craft Studio | DecodeLabs Project 1: Responsive Frontend Interface
+   Mobile-first. CSS Grid = macro layout, Flexbox = micro components.
+   Breakpoints (min-width): Tablet 768px, Desktop 1024px.
+   Typography constraint from the brief: max 2 font families, 3 weights.
+   ========================================================================== */
+
+/* 1. Fonts (self-hosted, 2 families x weights 400 / 600 / 700) ------------- */
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/montserrat-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/montserrat-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/montserrat-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("assets/fonts/open-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("assets/fonts/open-sans-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("assets/fonts/open-sans-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* 2. Design tokens -------------------------------------------------------- */
+:root {
+  /* Brief palette */
+  --mocha: #A5856F;          /* Mocha Mousse: stability (decorative / large areas) */
+  --blue: #A0D4E0;           /* Ethereal Blue: trust */
+  --grey: #F2F0EA;           /* Moonlit Grey: refinement (page background) */
+
+  /* Derived tones so text meets WCAG AA contrast */
+  --mocha-deep: #6B5441;     /* 6.4:1 on grey */
+  --ink: #3B2A1E;            /* 11.9:1 on grey */
+  --surface: #FBFAF7;
+  --line: #DDD5C8;
+  --blue-deep: #1F5666;      /* 7.2:1 on blue-tint */
+  --blue-tint: #E3F2F6;
+
+  --font-head: "Montserrat", "Inter", system-ui, sans-serif;
+  --font-body: "Open Sans", "Roboto", system-ui, sans-serif;
+
+  /* Fluid type (clamp: min, preferred, max) */
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+  --step-3: clamp(1.9rem, 1.4rem + 2.5vw, 3.2rem);
+
+  /* Spacing scale */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --radius: 1rem;
+  --shadow: 0 1px 2px rgb(59 42 30 / 0.06), 0 8px 24px rgb(59 42 30 / 0.06);
+}
+
+/* 3. Base / reset --------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--grey);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-head);
+  line-height: 1.2;
+  margin: 0 0 var(--space-1);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: var(--step-3); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); font-weight: 600; }
+
+p { margin: 0 0 var(--space-2); }
+ul { margin: 0; padding: 0; list-style: none; }
+
+a { color: var(--mocha-deep); text-underline-offset: 0.2em; }
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* In-page anchors should not sit flush against the viewport edge */
+[id] { scroll-margin-top: 1rem; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -4rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--ink);
+  color: var(--grey);
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+.skip-link:focus { top: var(--space-1); color: var(--grey); }
+
+/* 4. Macro layout: CSS Grid page structure --------------------------------
+   Mobile: one content column between two flexible gutters.
+   Named lines are reused at 1024px to add the side-panel column. */
+body {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--gutter), 1fr)
+    [main-start side-start] minmax(0, 50rem)
+    [main-end side-end] minmax(var(--gutter), 1fr)
+    [full-end];
+  grid-template-rows: auto auto auto 1fr auto;
+  column-gap: 0;
+}
+
+.site-header { grid-column: full; grid-row: 1; }
+.page-main   { grid-column: main; grid-row: 2; }
+.side-panel  { grid-column: side; grid-row: 3; margin-top: var(--space-4); }
+.site-footer { grid-column: full; grid-row: 5; margin-top: var(--space-5); }
+
+.page-main { display: grid; gap: var(--space-5); padding-top: var(--space-4); outline: none; }
+
+/* 5. Header and navigation (Flexbox components) --------------------------- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.75rem var(--gutter);
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-weight: 700;
+}
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.6rem;
+  background: var(--mocha-deep);
+  color: var(--grey);
+}
+
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  font: 600 0.95rem var(--font-body);
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--mocha-deep);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.menu-toggle__icon,
+.menu-toggle__icon::before {
+  display: block;
+  width: 1.1rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.2s ease;
+}
+.menu-toggle__icon { position: relative; }
+.menu-toggle__icon::before { content: ""; position: absolute; top: -6px; left: 0; }
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon { transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::before { top: 0; transform: rotate(90deg); }
+
+.site-nav { max-width: 72rem; margin-inline: auto; padding: 0 var(--gutter) var(--space-2); }
+.site-nav__list { display: flex; flex-direction: column; gap: 0.25rem; }
+.site-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 0.75rem;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.site-nav a:hover { background: var(--blue-tint); }
+
+/* Progressive enhancement: collapse the menu only when JS is running */
+.js .site-nav:not(.is-open) { display: none; }
+
+/* 6. Hero ----------------------------------------------------------------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+  border-radius: calc(var(--radius) * 1.5);
+  background: linear-gradient(160deg, var(--blue-tint), var(--blue) 140%);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-1);
+  font: 600 0.8rem var(--font-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-deep);
+}
+.hero__lead { max-width: 52ch; font-size: var(--step-1); line-height: 1.55; }
+.hero__art { margin: 0; max-width: 22rem; }
+.hero__art svg { display: block; width: 100%; height: auto; }
+
+/* 7. Buttons and chips ---------------------------------------------------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.5rem;
+  font: 600 1rem var(--font-body);
+  text-decoration: none;
+  border: 2px solid var(--mocha-deep);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.button--primary { background: var(--mocha-deep); color: var(--grey); }
+.button--primary:hover { background: var(--ink); border-color: var(--ink); color: var(--grey); }
+.button--ghost { background: transparent; color: var(--mocha-deep); }
+.button--ghost:hover { background: var(--mocha-deep); color: var(--grey); }
+.hero .button { align-self: flex-start; }
+
+.filters { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-3); }
+.chip {
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  font: 600 0.95rem var(--font-body);
+  color: var(--ink);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.chip:hover { border-color: var(--mocha); }
+.chip.is-active { background: var(--mocha-deep); border-color: var(--mocha-deep); color: var(--grey); }
+
+/* 8. Section headings ----------------------------------------------------- */
+.section-head { margin-bottom: var(--space-3); }
+.section-head p { color: var(--mocha-deep); margin: 0; }
+
+/* 9. Cards ---------------------------------------------------------------- */
+.card-grid { display: grid; gap: var(--space-2); grid-template-columns: 1fr; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.card[hidden] { display: none; }
+.card p { margin: 0; }
+.card.is-done { border-color: var(--blue-deep); background: var(--blue-tint); }
+
+.card__head { display: flex; align-items: center; gap: var(--space-2); }
+.card__head h3 { margin: 0; }
+.card__num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--ink);
+  font: 700 1rem var(--font-head);
+}
+.card__tag { margin: 0; font-size: 0.85rem; font-weight: 600; color: var(--mocha-deep); }
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+  min-height: 2.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.check input {
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  accent-color: var(--mocha-deep);
+  cursor: pointer;
+}
+
+/* 10. Standards ----------------------------------------------------------- */
+.standards__list { display: grid; gap: var(--space-2); grid-template-columns: 1fr; }
+.standard {
+  padding: var(--space-3);
+  background: var(--surface);
+  border-left: 6px solid var(--mocha);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.standard h3, .standard p { margin-bottom: 0.4rem; }
+.standard p:last-child { margin-bottom: 0; }
+
+/* 11. Progress side panel -------------------------------------------------- */
+.side-panel__inner {
+  padding: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.side-panel__count { font-weight: 600; }
+.side-panel__message { color: var(--mocha-deep); min-height: 3.3em; }
+
+.meter {
+  display: block;
+  width: 100%;
+  height: 0.9rem;
+  margin-bottom: var(--space-2);
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--line);
+}
+.meter::-webkit-progress-bar { background: var(--line); }
+.meter::-webkit-progress-value { background: var(--mocha-deep); transition: width 0.3s ease; }
+.meter::-moz-progress-bar { background: var(--mocha-deep); }
+
+/* 12. Footer -------------------------------------------------------------- */
+.site-footer { background: var(--ink); color: var(--grey); }
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: var(--space-4) var(--gutter);
+}
+.site-footer p { margin: 0; }
+.site-footer a { color: var(--blue); white-space: nowrap; }
+.site-footer a:hover { color: #fff; }
+
+/* 13. Tablet: 768px and up ------------------------------------------------- */
+@media (min-width: 768px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-5) var(--space-4);
+  }
+  .hero__text { flex: 1 1 0; min-width: 0; }
+  .hero__art { flex: 0 0 14rem; }
+
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .standards__list { grid-template-columns: repeat(3, 1fr); }
+
+  /* Menu button disappears; nav sits inline in the header bar */
+  .menu-toggle { display: none; }
+  .site-header { display: flex; align-items: center; justify-content: space-between; max-width: none; }
+  .site-header__bar { flex: none; margin: 0; }
+  .site-nav, .js .site-nav:not(.is-open) { display: block; margin: 0; padding: 0 var(--gutter) 0 0; }
+  .site-nav__list { flex-direction: row; gap: 0.5rem; }
+
+  .site-footer__inner { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+/* 14. Desktop: 1024px and up ----------------------------------------------- */
+@media (min-width: 1024px) {
+  /* Re-use the same named lines but add a dedicated side-panel column */
+  body {
+    grid-template-columns:
+      [full-start] minmax(var(--gutter), 1fr)
+      [main-start] minmax(0, 46rem)
+      [main-end] var(--space-4)
+      [side-start] 19rem
+      [side-end] minmax(var(--gutter), 1fr)
+      [full-end];
+    grid-template-rows: auto 1fr auto;
+  }
+  .page-main   { grid-column: main; grid-row: 2; }
+  .side-panel  { grid-column: side; grid-row: 2; margin-top: var(--space-4); align-self: start; position: sticky; top: var(--space-3); }
+  .site-footer { grid-row: 3; }
+
+  .site-header { padding-inline: max(0px, calc((100% - 72rem) / 2)); }
+  .site-header__bar, .site-nav { padding-inline: var(--gutter); }
+
+  .hero { padding: var(--space-5) var(--space-4); }
+}
+
+/* 15. Motion and contrast preferences -------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+
+@media (forced-colors: active) {
+  .chip.is-active, .button--primary { outline: 2px solid ButtonText; }
+}

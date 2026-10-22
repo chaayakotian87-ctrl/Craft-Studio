@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Craft Studio | DecodeLabs Industrial Training Kit</title>
+  <meta name="description" content="Craft Studio is a responsive, mobile-first training hub for the DecodeLabs Full Stack Development Project 1 roadmap.">
+  <meta name="theme-color" content="#F2F0EA">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23A5856F'/%3E%3Cpath d='M9 22V10l7 8 7-8v12' fill='none' stroke='%23F2F0EA' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="site-header__bar">
+      <a class="brand" href="#top" aria-label="Craft Studio, back to top">
+        <span class="brand__mark" aria-hidden="true">C</span>
+        <span class="brand__name">Craft Studio</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle__label">Menu</span>
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#standards">Standards</a></li>
+        <li><a href="#progress">My progress</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="page-main" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <p class="eyebrow">Project 1 &middot; Industrial Training Kit</p>
+        <h1 id="hero-title">Build interfaces that adapt to every screen.</h1>
+        <p class="hero__lead">Six steps take you from first idea to a polished, accessible responsive layout. Work through them in order and tick each one off as you finish.</p>
+        <a class="button button--primary" href="#roadmap">Start the roadmap</a>
+      </div>
+      <figure class="hero__art">
+        <svg viewBox="0 0 320 220" role="img" aria-labelledby="hero-art-title hero-art-desc">
+          <title id="hero-art-title">Phone, tablet and desktop layouts</title>
+          <desc id="hero-art-desc">A simple illustration of the same page shown on a desktop monitor, a tablet and a phone.</desc>
+          <rect x="20" y="20" width="200" height="130" rx="10" fill="#F2F0EA" stroke="#A5856F" stroke-width="4"/>
+          <rect x="34" y="34" width="172" height="26" rx="5" fill="#A0D4E0"/>
+          <rect x="34" y="70" width="52" height="64" rx="5" fill="#E3DDD2"/>
+          <rect x="94" y="70" width="52" height="64" rx="5" fill="#E3DDD2"/>
+          <rect x="154" y="70" width="52" height="64" rx="5" fill="#E3DDD2"/>
+          <rect x="100" y="150" width="40" height="22" fill="#A5856F"/>
+          <rect x="76" y="172" width="88" height="8" rx="4" fill="#A5856F"/>
+          <rect x="196" y="90" width="76" height="106" rx="9" fill="#F2F0EA" stroke="#6B5441" stroke-width="4"/>
+          <rect x="206" y="102" width="56" height="18" rx="4" fill="#A0D4E0"/>
+          <rect x="206" y="126" width="26" height="30" rx="4" fill="#E3DDD2"/>
+          <rect x="236" y="126" width="26" height="30" rx="4" fill="#E3DDD2"/>
+          <rect x="206" y="162" width="56" height="20" rx="4" fill="#E3DDD2"/>
+          <rect x="262" y="120" width="40" height="76" rx="8" fill="#F2F0EA" stroke="#A5856F" stroke-width="4"/>
+          <rect x="268" y="130" width="28" height="12" rx="3" fill="#A0D4E0"/>
+          <rect x="268" y="148" width="28" height="36" rx="3" fill="#E3DDD2"/>
+        </svg>
+        <figcaption class="visually-hidden">One layout, three screen sizes.</figcaption>
+      </figure>
+    </section>
+
+    <section id="roadmap" class="roadmap" aria-labelledby="roadmap-title">
+      <header class="section-head">
+        <h2 id="roadmap-title">The execution roadmap</h2>
+        <p>Pick a stage type to filter the list, then mark steps complete.</p>
+      </header>
+
+      <div class="filters" role="group" aria-label="Filter roadmap steps">
+        <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="plan" aria-pressed="false">Plan</button>
+        <button class="chip" type="button" data-filter="build" aria-pressed="false">Build</button>
+        <button class="chip" type="button" data-filter="verify" aria-pressed="false">Verify</button>
+      </div>
+      <p id="filter-status" class="visually-hidden" role="status" aria-live="polite"></p>
+
+      <div class="card-grid">
+        <article class="card" data-category="plan" data-step="discovery">
+          <header class="card__head">
+            <span class="card__num" aria-hidden="true">1</span>
+            <div>
+              <h3>Discovery</h3>
+              <p class="card__tag">Plan</p>
+            </div>
+          </header>
+          <p>Define the "How Might We" question. Use an empathy map to uncover real pain points before drawing anything. We do not guess; we research.</p>
+          <label class="check">
+            <input type="checkbox" data-step-check="discovery">
+            <span>Mark Discovery complete</span>
+          </label>
+        </article>
+
+        <article class="card" data-category="plan" data-step="wireframe">
+          <header class="card__head">
+            <span class="card__num" aria-hidden="true">2</span>
+            <div>
+              <h3>Wireframe</h3>
+              <p class="card__tag">Plan</p>
+            </div>
+          </header>
+          <p>Sketch low-fidelity, mobile-first layouts in grayscale. Focus on hierarchy and flow. If it does not work in grayscale, colour will not fix it.</p>
+          <label class="check">
+            <input type="checkbox" data-step-check="wireframe">
+            <span>Mark Wireframe complete</span>
+          </label>
+        </article>
+
+        <article class="card" data-category="build" data-step="semantics">
+          <header class="card__head">
+            <span class="card__num" aria-hidden="true">3</span>
+            <div>
+              <h3>Semantics</h3>
+              <p class="card__tag">Build</p>
+            </div>
+          </header>
+          <p>Lay down HTML landmarks: header, nav, main, article and footer. The right element for the right job gives screen readers a table of contents.</p>
+          <label class="check">
+            <input type="checkbox" data-step-check="semantics">
+            <span>Mark Semantics complete</span>
+          </label>
+        </article>
+
+        <article class="card" data-category="build" data-step="style">
+          <header class="card__head">
+            <span class="card__num" aria-hidden="true">4</span>
+            <div>
+              <h3>Style</h3>
+              <p class="card__tag">Build</p>
+            </div>
+          </header>
+          <p>Apply CSS Grid for the page and Flexbox for components, then the 2025 palette and type. Start with one column and expand using min-width media queries.</p>
+          <label class="check">
+            <input type="checkbox" data-step-check="style">
+            <span>Mark Style complete</span>
+          </label>
+        </article>
+
+        <article class="card" data-category="build" data-step="logic">
+          <header class="card__head">
+            <span class="card__num" aria-hidden="true">5</span>
+            <div>
+              <h3>Logic</h3>
+              <p class="card__tag">Build</p>
+            </div>
+          </header>
+          <p>Add basic state management and interactivity with JavaScript, such as menus, filters and saved progress, without reaching for a framework.</p>
+          <label class="check">
+            <input type="checkbox" data-step-check="logic">
+            <span>Mark Logic complete</span>
+          </label>
+        </article>
+
+        <article class="card" data-category="verify" data-step="audit">
+          <header class="card__head">
+            <span class="card__num" aria-hidden="true">6</span>
+            <div>
+              <h3>Audit</h3>
+              <p class="card__tag">Verify</p>
+            </div>
+          </header>
+          <p>Check performance (LCP and CLS) and accessibility against WCAG. Fix what you find, then test again on a real phone.</p>
+          <label class="check">
+            <input type="checkbox" data-step-check="audit">
+            <span>Mark Audit complete</span>
+          </label>
+        </article>
+      </div>
+    </section>
+
+    <section id="standards" class="standards" aria-labelledby="standards-title">
+      <header class="section-head">
+        <h2 id="standards-title">The standards</h2>
+        <p>Three principles guide every decision in this project.</p>
+      </header>
+      <ul class="standards__list">
+        <li class="standard">
+          <h3>Semantic integrity</h3>
+          <p>Code for AI and accessibility: meaningful elements, not just divs.</p>
+        </li>
+        <li class="standard">
+          <h3>2025 UI/UX compliance</h3>
+          <p>Warm, grounded aesthetics that move away from sterile tech.</p>
+        </li>
+        <li class="standard">
+          <h3>Universal access</h3>
+          <p>Strict WCAG adherence so everyone can use the interface.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <aside id="progress" class="side-panel" aria-labelledby="progress-title">
+    <div class="side-panel__inner">
+      <h2 id="progress-title">My progress</h2>
+      <p class="side-panel__count"><span id="progress-count">0</span> of <span id="progress-total">6</span> steps complete</p>
+      <label class="visually-hidden" for="progress-bar">Roadmap completion</label>
+      <progress id="progress-bar" class="meter" max="6" value="0">0 of 6</progress>
+      <p id="progress-message" class="side-panel__message" role="status" aria-live="polite">Ready when you are. Start with Discovery.</p>
+      <button id="reset-progress" class="button button--ghost" type="button">Reset progress</button>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p><strong>Craft Studio</strong> &middot; Full Stack Development, Project 1</p>
+      <p>Batch 2026 &middot; Powered by DecodeLabs</p>
+      <p><a href="#top">Back to top</a></p>
+    </div>
+  </footer>
+</body>
+</html>
