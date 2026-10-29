@@ -1,20 +1,61 @@
-# Craft Studio: DecodeLabs Full Stack Development, Project 1
+# Craft Studio
 
-Responsive Frontend Interface for the Industrial Training Kit (Batch 2026).
-Plain HTML5, CSS3 and basic JavaScript. No frameworks, no build step, no dependencies.
+**DecodeLabs Full Stack Development Internship — Project 1**
 
-## Run it
-- Easiest: double-click `index.html` (opens in your browser).
-- Or serve it: `python3 -m http.server 8000` in this folder, then open http://localhost:8000
+Craft Studio is a responsive frontend interface developed as part of the DecodeLabs internship program for the Industrial Training Kit (Batch 2026).
 
-## Structure
+## About the Project
+
+This project focuses on building a structured, responsive, and user-friendly web interface using fundamental frontend technologies. It demonstrates semantic HTML, responsive layouts, reusable CSS styling, and basic JavaScript interactions.
+
+## Technologies Used
+
+* HTML5
+* CSS3
+* JavaScript
+* Local Storage
+
+## Features
+
+* Responsive page layout
+* Navigation menu toggle
+* Roadmap filtering
+* Saved progress using browser Local Storage
+* CSS Grid and Flexbox layouts
+* Responsive breakpoints for different screen sizes
+
+## How to Run
+
+**Option 1: Open directly**
+
+1. Download or clone this repository.
+2. Open the project folder.
+3. Double-click `index.html` to launch the website in your browser.
+
+**Option 2: Run using Python**
+
+Open a terminal in the project folder and run:
+
+```bash
+python -m http.server 8000
 ```
-decodelabs-project1/
-├── index.html          Semantic markup: header, nav, main, section, article, aside, footer
-├── style.css           Tokens, Grid page layout, Flexbox components, 768px / 1024px media queries
-├── script.js           Menu toggle, roadmap filter, saved progress (localStorage)
-├── assets/fonts/       Self-hosted Montserrat + Open Sans (400, 600, 700) and their licences
+
+Then open `http://localhost:8000` in your browser.
+
+## Project Structure
+
+```text
+Craft-Studio/
+├── index.html
+├── style.css
+├── script.js
+├── assets/
+│   └── fonts/
 └── docs/
-    ├── 01-discovery-and-wireframe.md   How Might We, empathy map, grayscale wireframes
-    └── 02-audit.md                     Audit results and requirement checklist
+    ├── 01-discovery-and-wireframe.md
+    └── 02-audit.md
 ```
+
+## Internship
+
+Developed as Project 1 during the DecodeLabs Full Stack Development internship program, Batch 2026.
